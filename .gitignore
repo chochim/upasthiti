@@ -1,0 +1,8 @@
+
+*.pyc
+
+attendance/migrations/__init__.py
+
+attendance/migrations/0001_initial.py
+
+attendance/migrations/0002_attendancecode.py
