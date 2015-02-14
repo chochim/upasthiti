@@ -8,13 +8,23 @@ function checkEntryNum(entryNum)
 	return /^20[0-9][1-9][a-zA-Z][a-zA-Z][0-9]{5}$/.test(entryNum);
 }
 
-$('input').change(function() {
+$('#attendanceForm input').change(function() {
 	if (checkEntryNum($('#username').val()) &&
 		$('#attendance').val().length==6) {
 		$('#sbmt').removeClass('disabled');
     } else {
     	$('#sbmt').addClass('disabled');
 	}
+});
+
+$(function () {
+    $('#date').datepicker({
+        autoclose: true,
+    });
+});
+
+$('#date').on('changeDate', function(ev){
+    $(this).datepicker('hide');
 });
 
 $(document).ready(function() {

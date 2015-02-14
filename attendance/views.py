@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader
 from attendance.models import Course, Register, Student, AttendanceCode
+from django.contrib.auth.decorators import login_required
 import re
 import datetime
 
@@ -42,13 +43,6 @@ def register(entrynumber,attendanceCode, courseCode):
 	newAttendance.save()
 	return True
 
-def success(request, course):
-	courseObj = get_object_or_404(Course,code=course.upper())
-	return render 
-
-def failed(request, course):
-	courseObj = get_object_or_404(Course,code=course.upper())
-
 def index(request, course):
 	courseObj = get_object_or_404(Course,code=course.upper())
 	if request.method=='POST':
@@ -71,4 +65,22 @@ def index(request, course):
 	else:
 		context = {'courseCode':course.upper()}
 		return render(request,'attendance/index.html',context)
+
+@login_required(login_url='/login/')
+def generate(request):
+	if request.method== 'POST':
+		pass
+	else:
+		#get all courses
+		courses = Course.objects.all()
+		courseList = []
+		for course in courses:
+			courseObj = dict()
+			courseObj['name'] = course.name
+			courseObj['code'] = course.code
+			courseList.append(courseObj)
+		context = {'courseList': courseList}
+		return render(request,'attendance/coursedate.html',context)
+
+
 	
