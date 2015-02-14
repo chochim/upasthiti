@@ -29,11 +29,15 @@
 				<div class="col-lg-2 input-group">
 					<span class="input-group-addon glyphicon glyphicon-th-list"></span>
 					<!--<input type="text" class="form-control" id="course" name="course" />-->
-          <select class="course" id="course">
+          <div class="dropdown btn-group btn-block">
+            <button class="btn btn-default btn-block dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">Select course <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu btn-block" role="menu" aria-labelledby="dropdownMenu1">
             {% for course in courseList %}
-            <option>{{ course.code }}</option>
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">{{ course.code }}</a></li>
             {% endfor %}
-          </select>
+            </ul>
+          </div>
 				</div>
 			</div>
 			<div class="form-group">
