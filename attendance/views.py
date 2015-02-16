@@ -5,6 +5,7 @@ from attendance.models import Course, Register, Student, AttendanceCode
 from django.contrib.auth.decorators import login_required
 import re
 import datetime
+import uuid
 
 # Create your views here.
 def ifCourseExists(courseCode):
@@ -66,10 +67,26 @@ def index(request, course):
 		context = {'courseCode':course.upper()}
 		return render(request,'attendance/index.html',context)
 
+def getRandomPassword():
+	"""
+	returns a 6-digit random password
+	"""
+	return str(uuid.uuid4().get_hex().upper()[0:6])
+
+def generateRandomSecret(num):
+	"""
+	returns a list of num random passwords
+	"""
+	return [getRandomPassword() for i in range(num)]
+
 @login_required(login_url='/login/')
 def generate(request):
 	if request.method== 'POST':
-		pass
+		context = {}
+		#courseCode = request.POST['code']
+		#date = request.POST['date']
+		#print date, courseCode
+		return render(request, 'attendance/genSuccess.html',context)
 	else:
 		#get all courses
 		courses = Course.objects.all()
